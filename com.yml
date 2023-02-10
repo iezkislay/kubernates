@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+
+kind: Deployment
+	name: mysqlapp
+	labels: 
+		app: mysql
+		role: leader
+		tier: frontend
+spec: 
+	replicas: 2
+	selector:
+		matchLabels:
+			app: mysql
+	template:
+		metadata:
+			labels:
+				app: mysql
+		spec:
+			containers:
+			- name: leader
+			  image: "docker.io/mysql:8.0"
+			  ports:
+			  - containerPort: 3306
+			  env:
+			  - name: MYSQL_ROOT_PASSWORD
+			    value: password
+			  - name: MYSQL_DATABASE
+			    value: db
+			  - name: MYSQL_USER
+			    value: user
+			  - name: MYSQL_PASSWORD
+			    value: password
